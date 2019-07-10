@@ -33,4 +33,11 @@ def self.delete_all()
   SqlRunner.run(sql)
 end
 
+def self.all()
+  sql= "SELECT * FROM albums"
+  orders = SqlRunner.run(sql)
+  return orders.map { |order| Album.new(order)}
+end
+
+
 end
