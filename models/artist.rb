@@ -35,7 +35,8 @@ def album_list
   album_list = album_list_hashes.map { |order|
   Album.new (order) }
   return album_list
-end 
+end
+
 
 
 end
