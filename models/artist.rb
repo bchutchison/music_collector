@@ -2,7 +2,8 @@ require_relative('../db/sql_runner')
 
 class Artist
 
-attr_reader :id, :name
+attr_accessor :name
+attr_reader :id
 
   def initialize(options)
   @id = options['id'].to_i if options['id']
@@ -35,6 +36,21 @@ def album_list
   album_list = album_list_hashes.map { |order|
   Album.new (order) }
   return album_list
+end
+
+def update()
+  sql = "UPDATE artists SET name = $1 WHERE id = $2"
+  values = [@name, @id]
+  SqlRunner.run(sql, values)
+end
+
+def self.find(id)
+  sql = "SELECT * FROM artists WHERE id = $1"
+  values = [id]
+  results = SqlRunner.run(sql, values)
+  find_hash = results.first
+  find = Artist.new(find_hash)
+  return find
 end
 
 
